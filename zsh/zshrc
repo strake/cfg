@@ -6,15 +6,12 @@
 #
 # Global Order: zshenv, zprofile, zshrc, zlogin
 
-PS1='%n@%m %y %4~ %(!.#.$) '
+PS1='[%n@%m %y]%(!.#.$) '
+RPS1='(%20<...<%~)'
 
 autoload -U zmv
 
-alias q=exit
 alias chdir=cd
-
-export PATH=~/bin:"$PATH"
-
 
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 			     /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
