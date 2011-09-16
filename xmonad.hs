@@ -26,8 +26,9 @@ main = xmonad $ defaultConfig {
 
   -- bindings
   keys = \ cfg@(XConfig {XMonad.modMask = modm}) -> M.fromList [
-    ((modm,               xK_Return      ), spawn (XMonad.terminal cfg)),
-    ((modm .|. shiftMask, xK_Return      ), spawn "x=`dmenu_path | dmenu` && eval \"exec $x\""),
+    ((modm,               xK_space       ), spawn (XMonad.terminal cfg)),
+    ((modm,               xK_Return      ), spawn "dmenu_run"),
+    ((modm,               xK_b           ), spawn "surf"),
     ((modm,               xK_bracketright), windows W.focusDown),
     ((modm,               xK_bracketleft ), windows W.focusUp),
     ((modm,               xK_backslash   ), windows W.focusMaster),
