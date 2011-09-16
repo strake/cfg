@@ -42,6 +42,7 @@ main = xmonad $ defaultConfig {
       ((0,                xK_backslash   ), withFocused (sendMessage . UnMerge))]),
     ((modm,               xK_BackSpace   ), withFocused (windows . ($ W.RationalRect (1/3) (1/3) (1/3) (1/3)) . W.float)),
     ((modm .|. shiftMask, xK_BackSpace   ), withFocused (windows . W.sink)),
+    ((modm,               xK_w           ), kill),
     ((modm,               xK_period      ), sendMessage Expand),
     ((modm,               xK_comma       ), sendMessage Shrink),
     ((modm .|. ctrlMask,  xK_period      ), sendMessage (IncMasterN 1)),
