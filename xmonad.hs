@@ -1,6 +1,9 @@
-import XMonad;
+{-# LANGUAGE TupleSections #-}
+
+import XMonad hiding (spawn);
 import XMonad.Actions.CycleWS;
 import XMonad.Actions.Submap;
+import XMonad.Hooks.ManageHelpers;
 import XMonad.Layout.Simplest;
 import XMonad.Layout.SubLayouts;
 import XMonad.Layout.Tabbed;
@@ -9,26 +12,37 @@ import qualified XMonad.Layout.BoringWindows as BW;
 import qualified XMonad.StackSet             as W;
 import qualified Data.Map                    as M;
 
-import Control.Concurrent;
-import System.Process;
+import Data.Monoid;
+import Data.IORef;
+import System.Posix.Process;
+import System.Posix.Types;
 
-main = xmonad $ defaultConfig {
+main = newIORef ([] :: [(ProcessID, ManageHook)]) >>= \ sp_ref ->
+       xmonad $ defaultConfig {
   -- basics
   borderWidth        = 1,
-  terminal           = "urxvt -sr",
+  terminal           = "urxvt",
   normalBorderColor  = "#666666",
   focusedBorderColor = "#FFFFFF",
   modMask            = mod4Mask,
 
   layoutHook = addTabsAlways shrinkText defaultTheme $ subLayout [] Simplest $ BW.boringWindows $ Tall 1 (1/40) (3/4),
 
-  startupHook = liftIO $ createProcess (proc "/usr/bin/xscreensaver" []) >> return (),
+  startupHook = spawn_ "/usr/bin/xscreensaver" [] >> return (),
+
+  manageHook = pid >>= maybe idHook
+               (\ p ->
+                liftIO (readIORef sp_ref) >>*
+                lookup p >>=
+                maybe idHook ((>>) $ liftIO . modifyIORef sp_ref $ filter ((/= p) . fst))),
 
   -- bindings
   keys = \ cfg@(XConfig {XMonad.modMask = modm}) -> M.fromList [
-    ((modm,               xK_space       ), spawn (XMonad.terminal cfg)),
-    ((modm,               xK_Return      ), spawn "dmenu_run"),
-    ((modm,               xK_b           ), spawn "surf"),
+    ((modm,               xK_space       ), spawn_ "urxvt" ["-sr"] >> return ()),
+    ((modm,               xK_Return      ), spawn_ "dmenu_run" []  >> return ()),
+    ((modm,               xK_b           ), spawn_ "surf" []       >> return ()),
+    --((modm .|. shiftMask, xK_space       ), spawn_ "urxvt" ["-sr"] >>* (, liftX $ withFocused (sendMessage . mergeDir W.focusDown') >>= \ () -> return mempty) >>= liftIO . modifyIORef sp_ref . (:)),
+    --((modm .|. shiftMask, xK_b           ), spawn_ "surf" [] >>* (, liftX $ withFocused (sendMessage . mergeDir W.focusDown') >>= \ () -> return mempty) >>= liftIO . modifyIORef sp_ref . (:)),
     ((modm,               xK_bracketright), windows W.focusDown),
     ((modm,               xK_bracketleft ), windows W.focusUp),
     ((modm,               xK_backslash   ), windows W.focusMaster),
@@ -56,3 +70,12 @@ main = xmonad $ defaultConfig {
 };
 
 ctrlMask = controlMask; -- Brevity! Huzzah!
+
+spawn :: MonadIO m => String -> [String] -> Maybe [(String, String)] -> m ProcessID;
+spawn x argu environ = liftIO $ forkProcess $ uninstallSignalHandlers >> createSession >> executeFile x True argu environ;
+
+spawn_ :: MonadIO m => String -> [String] -> m ProcessID;
+spawn_ x argu = spawn x argu Nothing;
+
+infixl 1 >>*;
+f >>* g = f >>= return . g;
