@@ -38,7 +38,7 @@ HISTFILE=~/.histfile
 HISTSIZE=1024
 SAVEHIST=4096
 
-setopt inc_append_history auto_cd beep extended_glob mark_dirs case_glob bad_pattern null_glob numeric_glob_sort rc_expand_param chase_links list_packed list_types extended_history hist_ignore_dups hist_ignore_space path_dirs print_eight_bit auto_continue multios
+setopt inc_append_history auto_cd beep extended_glob mark_dirs case_glob bad_pattern null_glob numeric_glob_sort rc_expand_param rc_quotes chase_links list_packed list_types extended_history hist_ignore_dups hist_ignore_space path_dirs print_eight_bit auto_continue multios
 unsetopt notify auto_remove_slash
 
 bindkey -e
