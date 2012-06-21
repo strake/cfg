@@ -47,7 +47,8 @@ main = xmonad $ defaultConfig {
     ((modm,               xK_Next        ), nextWS),
     ((modm,               xK_Prior       ), prevWS),
     ((modm .|. ctrlMask,  xK_Next        ), shiftToNext),
-    ((modm .|. ctrlMask,  xK_Prior       ), shiftToPrev)
+    ((modm .|. ctrlMask,  xK_Prior       ), shiftToPrev),
+    ((modm,               xK_w           ), kill)
   ]
 };
 
