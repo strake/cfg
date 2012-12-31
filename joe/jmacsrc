@@ -135,7 +135,7 @@
 
 -autoswap	Swap markb with markk when necessary
 
--joe_state	Use ~/.joe_state file
+ -joe_state	Use ~/.joe_state file
 
 -mouse		Enable mouse support
 
@@ -322,7 +322,7 @@
 
  Default local options
 -highlight
--istep 2
+-indentc 9
 
  Use this macro (put in first column) to have joe "p4 edit" a file you're about to change.
 
