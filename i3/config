@@ -68,10 +68,10 @@ bindcode $mod+Control+47 floating toggle
 # QWERTY 'NM/'
 bindcode $mod+57 workspace prev
 bindcode $mod+58 workspace next
-bindcode $mod+61 exec i3-msg workspace "$(dmenu -p 'Workspace name')"
+bindcode $mod+61 exec i3-msg workspace "$(dmenu -p 'Workspace name' </dev/null)"
 bindcode $mod+Control+57 move container to workspace prev
 bindcode $mod+Control+58 move container to workspace next
-bindcode $mod+Control+61 exec i3-msg move container to workspace "$(dmenu -p 'Workspace name')"
+bindcode $mod+Control+61 exec i3-msg move container to workspace "$(dmenu -p 'Workspace name' </dev/null)"
 
 # reload the configuration file
 bindsym $mod+F1 reload
