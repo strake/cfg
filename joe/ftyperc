@@ -393,6 +393,11 @@
 -text_delimiters #if|#ifdef|#ifndef=#elif=#else=#endif
 -cpara >#!;*/%
 
+ Haskell file
+*.hs
+-tab 4
+-syntax haskell
+
  Verilog file
 *.v
 -autoindent
