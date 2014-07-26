@@ -75,3 +75,6 @@ fi
 
 unalias run-help
 autoload run-help
+
+autoload -U select-word-style
+select-word-style bash
