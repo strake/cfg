@@ -1,0 +1,9 @@
+[push]
+	default = matching
+[alias]
+	la = log --oneline --decorate --all --graph
+	egrep = grep -E
+	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+	permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
+[diff]
+	algorithm = histogram
