@@ -11,7 +11,8 @@
  (define-key my-mode-map (kbd "C-c") (lambda () (interactive) (if warned (kill-emacs) (progn (setq warned t) (message "WARNING: file modified (once more to quit)") nil))))
  (add-hook 'before-change-functions (lambda (x y) (setq warned nil))))
 
-(define-key my-mode-map (kbd "C-d") 'kill-region)
+(define-key my-mode-map (kbd "C-d") (lambda () (interactive) (call-process-region (region-beginning) (region-end) "xsel" 't nil nil "-bi")))
+(define-key my-mode-map (kbd "C-y") (lambda () (interactive) (call-process "xsel" nil 't nil "-bo")))
 (define-key my-mode-map (kbd "C-x") 'save-buffer)
 (define-key my-mode-map (kbd "C-w") 'backward-kill-word)
 
@@ -26,9 +27,6 @@
 
 (set-face-background 'region "white")
 (set-face-foreground 'region "black")
-
-(setq interprogram-cut-function (lambda (x) (let ((p (start-process "" nil "xsel" "-bi"))) (process-send-string p x) (process-send-eof p) (accept-process-output p))))
-(setq interprogram-paste-function (lambda () (let ((p (start-process "" nil "xsel" "-bo")) (x "")) (set-process-filter p (lambda (_ y) (setq x (concat x y)))) (accept-process-output p) x)))
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
