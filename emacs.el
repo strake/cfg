@@ -27,6 +27,9 @@
 (set-face-background 'region "white")
 (set-face-foreground 'region "black")
 
+(setq interprogram-cut-function (lambda (x) (let ((p (start-process "" nil "xsel" "-bi"))) (process-send-string p x) (process-send-eof p) (accept-process-output p))))
+(setq interprogram-paste-function (lambda () (let ((p (start-process "" nil "xsel" "-bo")) (x "")) (set-process-filter p (lambda (_ y) (setq x (concat x y)))) (accept-process-output p) x)))
+
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
 
