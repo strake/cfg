@@ -1,10 +1,14 @@
 ;; -*- lexical-binding: t -*-
 
+(defvar my-mode-map (make-sparse-keymap))
+
 (define-minor-mode my-mode
  ""
  :global t
- :keymap (make-sparse-keymap)
+ :keymap my-mode-map
  :init-value t)
+
+(add-to-list 'emulation-mode-map-alists `((my-mode . ,my-mode-map)))
 
 (let (warned)
  (setq warned t)
