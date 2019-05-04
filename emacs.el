@@ -47,6 +47,7 @@
 (define-key my-mode-map (kbd "C-a ,") 'agda2-goal-and-context)
 (define-key my-mode-map (kbd "C-a .") 'agda2-goal-and-context-and-inferred)
 (define-key my-mode-map (kbd "C-a ;") 'agda2-goal-and-context-and-checked)
+(define-key my-mode-map (kbd "C-a w") 'agda2-why-in-scope-maybe-toplevel)
 
 (define-key my-mode-map (kbd "M-|") (let ((current-prefix-arg '(4))) 'shell-command-on-region))
 
@@ -55,7 +56,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(agda2-highlight-level (quote none))
+ '(agda2-highlight-level (quote interactive))
  '(column-number-mode t)
  '(delete-auto-save-files t)
  '(describe-char-unidata-list
@@ -76,4 +77,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(agda2-highlight-catchall-clause-face ((t nil)))
+ '(agda2-highlight-coinductive-constructor-face ((t nil)))
+ '(agda2-highlight-datatype-face ((t nil)))
+ '(agda2-highlight-field-face ((t nil)))
+ '(agda2-highlight-function-face ((t nil)))
+ '(agda2-highlight-inductive-constructor-face ((t nil)))
+ '(agda2-highlight-keyword-face ((t (:foreground "color-219"))))
+ '(agda2-highlight-module-face ((t nil)))
+ '(agda2-highlight-number-face ((t nil)))
+ '(agda2-highlight-postulate-face ((t nil)))
+ '(agda2-highlight-primitive-face ((t nil)))
+ '(agda2-highlight-primitive-type-face ((t nil)))
+ '(agda2-highlight-record-face ((t nil)))
+ '(agda2-highlight-string-face ((t (:foreground "color-40"))))
+ '(agda2-highlight-symbol-face ((t (:foreground "color-219")))))
