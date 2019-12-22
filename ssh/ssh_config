@@ -19,6 +19,8 @@
 
 Host *
 	VisualHostKey yes
+	Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,aes192-cbc,aes256-cbc
+	MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160
 
 ControlMaster auto
 ControlPath /tmp/%u@%l-%r@%n:%p.so
@@ -44,13 +46,9 @@ ControlPath /tmp/%u@%l-%r@%n:%p.so
 #   IdentityFile ~/.ssh/id_ed25519
 #   Port 22
 #   Protocol 2
-#   Cipher 3des
-#   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc
-#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160
 #   EscapeChar ~
 #   Tunnel no
 #   TunnelDevice any:any
 #   PermitLocalCommand no
-#   VisualHostKey no
 #   ProxyCommand ssh -q -W %h:%p gateway.example.com
 #   RekeyLimit 1G 1h
